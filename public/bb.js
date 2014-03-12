@@ -52,8 +52,8 @@ var EditUser = Backbone.View.extend({
   render: function(options) {
     var that = this;
     if (options.id) { // If there is already a user present, populate with the relevant fields
-      that.user = new User({id: options.id});
-      that.user.fetch({
+      this.user = new User({id: options.id});
+      this.user.fetch({
         success: function(user) {
           var template = _.template($('#edit-user-template').html(), {user: user});
           that.$el.html(template);
