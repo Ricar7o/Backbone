@@ -12,14 +12,64 @@
 <body>
   <div class="container">
     <h1>Backbone practice</h1>
-    <h3>User manager</h3>
-    <hr>
+    <h2><a href="/">User manager</a></h3>
+    <!-- <hr> -->
     <div class="page"></div>
   </div>
+
+  <!-- Underscore template for the User List -->
+  <script type="text/template" id="user-list-template">
+    <a href="#/new" class="btn btn-primary">New user</a>
+    <hr>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Age</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% _.each(users, function(user) { %>
+          <tr>
+            <td><%= user.get('firstname') %></td>
+            <td><%= user.get('lastname') %></td>
+            <td><%= user.get('age') %></td>
+            <td><a href="#/edit/<%= user.id %>">Edit</a></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </script>
+
+  <!-- Underscore template for the New/Edit User form -->
+  <script type="text/template" id="edit-user-template">
+    <form class="form-inline" id="edit-user-form">
+      <legend><%= user ? 'Update' : 'Create' %> user</legend>
+      <div class="form-group">
+        <label class="sr-only">First name</label>
+        <input type="text" class="form-control" name="firstname" placeholder="First name" value="<%= user ? user.get('firstname') : '' %>">
+      </div>
+      <div class="form-group">
+        <label class="sr-only">Last name</label>
+        <input type="text" class="form-control" name="lastname" placeholder="Last name" value="<%= user ? user.get('lastname') : '' %>">
+      </div>
+      <div class="form-group">
+        <label class="sr-only">Age</label>
+        <input type="number" class="form-control" name="age" placeholder="Age" value="<%= user ? user.get('age') : '' %>">
+      </div>
+      <input type="submit" class="btn btn-primary">
+      <% if (user) { %>
+        <input type="hidden" name="id" value="<%= user.id %>">
+        <input type="button" class="btn btn-danger delete" value="Delete">
+      <% } %>
+    </form>
+  </script>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
-  <script src="bb.js"></script>
+  <script src="bb.js"></script> <!-- This loads the Backbone functionality -->
 </body>
 </html>
